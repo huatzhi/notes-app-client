@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
+import {
+  withRouter,
+  Link
+} from 'react-router-dom';
+import {
+  Nav,
+  Navbar,
+  NavItem
+} from 'react-bootstrap';
 import './App.css';
 import Routes from './Routes';
 
+// todo::it will probably be better that navbar should have one component of its
+// own
 class App extends Component {
+  handleNavLink = (event) => {
+    event.preventDefault();
+    this.props.history.push(event.currentTarget.getAttribute('href'));
+  }
+
   render() {
     return (
       <div className="App container">
@@ -15,6 +29,12 @@ class App extends Component {
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <NavItem onClick={this.handleNavLink} href="/signup">Signup</NavItem>
+              <NavItem onClick={this.handleNavLink} href="/login">Login</NavItem>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
         <Routes />
       </div>
@@ -22,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
