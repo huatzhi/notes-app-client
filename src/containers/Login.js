@@ -60,10 +60,11 @@ class Login extends Component {
 
     try {
       const userToken = await this.login(this.state.username, this.state.password);
-      alert(userToken);
+      this.props.updateUserToken(userToken);
     }
     catch(e) {
-      alert(e);
+      console.error(e);
+      alert(e); // todo::change to modal prompt if possible
     }
   }
 
